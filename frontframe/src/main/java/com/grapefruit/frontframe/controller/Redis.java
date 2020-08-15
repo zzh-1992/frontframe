@@ -15,6 +15,10 @@ public class Redis {
         return "pages/redis/transaction::link";
     }
 
+    /**
+     * redis持久性
+     * @return
+     */
     @GetMapping("/pages/redis/dataPersistence")
     public String dataPersistence(){
         return "pages/redis/dataPersistence::link";
