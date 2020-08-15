@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="link(data)">
+
+    <table>
+        <thead>
+            <tr class="jsgrid-header-row">
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 150px;">ID</th>
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 150px;">UserName</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 50px;">Password</th>
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 200px;">RealName</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;">CreateDate</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;">Salt</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;">Status</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;">Modify00</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            <tr class="jsgrid-header-row" th:each="item:${data.list}">
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 150px;" th:text="${item.id}">ID</th>
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 150px;" th:text="${item.username}">UserName</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 50px;" th:text="${item.password}" >Password</th>
+                <th class="jsgrid-header-cell jsgrid-align-center" style="width: 200px;" th:text="${item.realname}">RealName</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;" th:text="${#calendars.format(item.createDate,'yyyy/MM/dd')}">createDate</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;" th:text="${item.salt}">salt</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;" th:text="${item.status}" >status</th>
+                <th class="jsgrid-header-cell jsgrid-align-center " style="width: 100px;" >
+                    <a th:onclick="myAjax('pages/user/add')"  href="javascript:void(0);"  class="nav-link">add</a> |
+                    <a th:onclick="myAjax('pages/user/delete?id='+[[${item.id}]])"  href="javascript:void(0);"  class="nav-link">delete</a></th>
+            </tr>
+        </tbody>
+    </table>
+</th:block>
+
+
+

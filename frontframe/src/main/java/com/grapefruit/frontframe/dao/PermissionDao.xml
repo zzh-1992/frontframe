@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grapefruit.frontframe.dao.PermissionDao">
+
+    <resultMap id="BaseResultMap" type="com.grapefruit.frontframe.entity.Permission">
+        <!--@Table t_permission-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="perm" column="perm" jdbcType="VARCHAR"/>
+        <result property="display" column="display" javaType="INTEGER"/>
+
+        <collection property="child"  ofType="com.grapefruit.frontframe.entity.Permission">
+            <result property="id" column="child_id" jdbcType="INTEGER"/>
+            <result property="name" column="child_name" jdbcType="VARCHAR"/>
+            <result property="url" column="child_url" jdbcType="VARCHAR"/>
+            <result property="type" column="child_type" jdbcType="INTEGER"/>
+            <result property="parentId" column="child_parent_id" jdbcType="INTEGER"/>
+            <result property="perm" column="child_perm" jdbcType="VARCHAR"/>
+            <result property="display" column="child_display" javaType="INTEGER"/>
+        </collection>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, name, url, type, parent_id, perm
+        from rbac.t_permission
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          p1.id, p1.name, p1.url, p1.type, p1.parent_id, p1.perm,
+          p2.name as child_name,
+          p2.url as child_url,
+          p2.id as child_id,
+          p2.type as child_type,
+          p2.perm as child_perm,
+          p2.parent_id as child_parent_id
+        from t_permission p1
+        join t_permission p2
+        on p2.parent_id = p1.id
+        where p2.display = 1
+    </select>
+
+</mapper>
