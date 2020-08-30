@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="link">
+
+          <pre>
+            # 解压数据库文件到指定目录
+
+            ![image-20200623170829996](img\image-20200623170829996.png)
+
+            # 在解压的目录里面创建my.ini配置文件
+
+            ## 创建my.ini数据库配置文件
+
+            ![image-20200623170940587](img\image-20200623170940587.png)
+
+            ## 配置my.ini文件（根据以下的内容，自己修改两处即可）
+
+            ```bash
+            [mysqld]
+            #设置sql模式
+
+            sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+
+            # 设置3306端口
+
+            port=3306
+
+            # 设置mysql的安装目录[这里根据你自己安装的目录设置]
+
+            basedir=D:\mysql-8.0.20-winx64
+
+            # 设置mysql数据库的数据的存放目录[这里根据你自己安装的目录设置]
+
+            datadir=D:\mysql-8.0.20-winx64\Data
+
+            # 允许最大连接数
+
+            max_connections=200
+
+            # 允许连接失败的次数。这是为了防止有人从该主机试图攻击数据库系统
+
+            max_connect_errors=10
+
+            # 服务端使用的字符集默认为UTF8MB4
+
+            character-set-server=UTF8MB4
+
+            # 创建新表时将使用的默认存储引擎
+
+            default-storage-engine=INNODB
+
+            # 默认使用“mysql_native_password”插件认证
+
+            default_authentication_plugin=mysql_native_password
+
+            [mysql]
+            # 设置mysql客户端默认字符集
+            default-character-set=UTF8MB4
+
+            [client]
+            # 设置mysql客户端连接服务端时默认使用的端口
+            port=3306
+            default-character-set=UTF8MB4
+
+            ```
+
+            # 启动CMD【必须管理员身份】初始化数据库
+
+            ```bash
+            mysqld --initialize
+            ```
+
+            ## 可能出现的问题
+
+            ![image-20200623171508004](img\image-20200623171508004.png)
+
+            - 该问题的原因是缺少微软的库
+
+            ### 解决方案
+
+            - 安装【vc_redist.x64.exe】【如果你的机器安装不了，就安装另外的程序】
+            - 安装【微软常用运行库合集_2019.07.20_X64.exe】【需要一点时间，耐心等待】
+            - 然后继续初始化数据库【执行 mysqld --initialize 命令】
+
+            # 安装MySQL服务
+
+            ## 使用命令安装MySQL服务（CMD必须是管理员权限）
+
+            ```bash
+            #语法：mysqld --参数  服务名称
+            #mysqld --remove mysql80 删除服务
+            mysqld --install mysql80
+            ```
+
+            ![image-20200623172334822](img\image-20200623172334822.png)
+
+            ## 启动服务
+
+            ```bash
+            net start mysql80
+            ```
+
+
+
+            ![image-20200623172422546](img\image-20200623172422546.png)
+
+            ## 修改MySQL密码
+
+            ### 获取随机密码【需要先获取随机密码，然后登陆】
+
+            在Data目录下生的文件有一个.err文件，然后打开这个err文件，找到随机密码
+
+            ![image-20200623172849920](img\image-20200623172849920.png)
+
+            ### 打开err文件
+
+            ![image-20200623173013796](img\image-20200623173013796.png)
+
+
+
+            ### 使用随机密码登陆
+
+            ```bash
+            mysql -u root -p
+            ```
+
+
+
+            ### SQL语句修改密码
+
+            ```bash
+            ALTER user 'root'@'localhost' IDENTIFIED BY '123456';
+            flush privileges;
+            ```
+
+
+          </pre>
+</th:block>
+
+
+
+</html>
+

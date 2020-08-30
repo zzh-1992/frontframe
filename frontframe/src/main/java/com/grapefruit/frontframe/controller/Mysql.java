@@ -20,4 +20,10 @@ public class Mysql {
         return "pages/mysql/view::link";
     }
 
+    //mysql8install
+
+    @GetMapping("/pages/mysql/mysql8install")
+    public String mysql8install(){
+        return "pages/mysql/mysql8install::link";
+    }
 }
