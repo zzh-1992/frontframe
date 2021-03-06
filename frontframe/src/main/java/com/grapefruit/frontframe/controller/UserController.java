@@ -63,14 +63,11 @@ public class UserController {
         model.addAttribute("data","delete=="+ id+"========>");
         StringBuffer stringBuffer =new StringBuffer();
         return "pages/user/delete::link";
-
     }
 
     @RequestMapping("/pages/user/edit")
     public String userEdit(Model model) {
         model.addAttribute("data","edit==========>");
         return "pages/user/edit::link";
-
     }
-
 }
